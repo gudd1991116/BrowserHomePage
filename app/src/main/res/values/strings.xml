@@ -1,3 +1,8 @@
 <resources>
     <string name="app_name">BrowserHomePage</string>
+
+
+    <string name="header_newsflow_behavior">com.gudong.browser.browserhomepage.behavior.NewsFlowBehavior</string>
+    <string name="header_behavior">com.gudong.browser.browserhomepage.behavior.HeaderBehavior</string>
+    <string name="header_searchview_behavior">com.gudong.browser.browserhomepage.behavior.SearchViewBehavior</string>
 </resources>
