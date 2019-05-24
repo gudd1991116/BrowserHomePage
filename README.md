@@ -1,3 +1,3 @@
 # BrowserHomePage
 
-# 暂无内容，正在Coding
+使用Coordinatorlayout Behavior 实现的一个浏览器首页界面
