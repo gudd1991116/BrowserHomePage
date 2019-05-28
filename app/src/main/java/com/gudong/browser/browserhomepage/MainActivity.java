@@ -1,9 +1,12 @@
 package com.gudong.browser.browserhomepage;
 
+import android.content.Context;
 import android.graphics.Color;
 import android.support.annotation.NonNull;
+import android.support.design.widget.CoordinatorLayout;
 import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
+import android.support.v4.widget.NestedScrollView;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.GridLayoutManager;
@@ -16,15 +19,22 @@ import android.view.ViewGroup;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.TextView;
+import android.widget.Toast;
+
+import com.gudong.browser.browserhomepage.behavior.NewsFlowBehavior;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
-
+    Context mContext;
     RecyclerView news_flow_recyclerview;
     RecyclerView sites_view;
     ViewPager viewpager;
+    NestedScrollView nested_header;
+    NestedScrollView news_flow_nsv;
+
+    NewsFlowBehavior newsFlowBehavior = null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -33,7 +43,7 @@ public class MainActivity extends AppCompatActivity {
 //        this.getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
 //                WindowManager.LayoutParams.FLAG_FULLSCREEN);
         setContentView(R.layout.activity_main);
-
+        mContext = this;
 
         initView();
 
@@ -49,7 +59,6 @@ public class MainActivity extends AppCompatActivity {
         MyTopSiteAdapter topSiteAdapter = new MyTopSiteAdapter(strings);
         sites_view.setLayoutManager(new GridLayoutManager(this,4));
         sites_view.setHasFixedSize(true);
-        sites_view.setNestedScrollingEnabled(false);
         sites_view.setAdapter(topSiteAdapter);
         topSiteAdapter.notifyDataSetChanged();
 
@@ -81,10 +90,43 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void initView() {
+        nested_header = findViewById(R.id.nested_header);
+        news_flow_nsv = findViewById(R.id.news_flow_nsv);
+        nested_header.setSmoothScrollingEnabled(false);
         news_flow_recyclerview = findViewById(R.id.news_flow_recyclerview);
         sites_view = findViewById(R.id.sites_view);
         viewpager = findViewById(R.id.viewpager);
+        initBehavior();
+    }
 
+    private void initBehavior() {
+        newsFlowBehavior = (NewsFlowBehavior) ((CoordinatorLayout.LayoutParams)news_flow_nsv.getLayoutParams()).getBehavior();
+        if (newsFlowBehavior == null) {
+            return;
+        }
+        newsFlowBehavior.setOnPagerStateListener(new NewsFlowBehavior.OnPagerStateListener() {
+            @Override
+            public void onPagerClosed() {
+                newsFlowBehavior.setCouldScrollOpen(false);
+                Toast.makeText(mContext, "close", Toast.LENGTH_SHORT).show();
+            }
+
+            @Override
+            public void onPagerOpened() {
+                newsFlowBehavior.setCouldScrollOpen(true);
+                Toast.makeText(mContext, "open", Toast.LENGTH_SHORT).show();
+            }
+        });
+    }
+
+    @Override
+    public void onBackPressed() {
+//        super.onBackPressed();
+        if (newsFlowBehavior.isClosed()) {
+            newsFlowBehavior.scrollToTop();
+        }else{
+            super.onBackPressed();
+        }
     }
 
     class MyTopSiteAdapter extends RecyclerView.Adapter<MyTopSiteAdapter.MyHolder>{

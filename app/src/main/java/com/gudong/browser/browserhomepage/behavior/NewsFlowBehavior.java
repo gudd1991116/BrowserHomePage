@@ -100,8 +100,6 @@ public class NewsFlowBehavior extends CoordinatorLayout.Behavior<View> {
 
         // 防界面快速滑动抖动-针对fling的情况
         if (type == ViewCompat.TYPE_NON_TOUCH && (dty == 0 || dty <= minHeaderScrollDistance )) {
-//        if (type == ViewCompat.TYPE_NON_TOUCH && (dty <=0 && dty >= minHeaderScrollDistance )) {
-//        if (type == ViewCompat.TYPE_NON_TOUCH && (dty >=-(getHeaderHeight() - getSearchViewHeight() - 200) || dty <= minHeaderScrollDistance )) {
             ViewCompat.stopNestedScroll(target, type);
         }
 
@@ -295,13 +293,14 @@ public class NewsFlowBehavior extends CoordinatorLayout.Behavior<View> {
      * 页面将自上向下自动滑动
      */
     public void scrollToTop() {
+        isCouldScrollOpen = true;
         View dependency = getDependency();
         float dependencyCurTY = dependency.getTranslationY();
         float maxDependencyScrollLocation = 0.f;// 最大滚动到的位置
         float minDependentViewScrollOffset = -(getHeaderHeight() - getSearchViewHeight());// 自动滑动最小值 minDependentViewScrollOffset = -430
 
-        if (dependencyCurTY > minDependentViewScrollOffset && dependencyCurTY < maxDependencyScrollLocation) {
-            mScroller.startScroll(0, (int) dependencyCurTY, 0, (int) maxDependencyScrollLocation, 800);
+        if (dependencyCurTY < maxDependencyScrollLocation) {
+            mScroller.startScroll(0, (int) dependencyCurTY, 0, (int) (maxDependencyScrollLocation-dependencyCurTY), 1000);
             mHandler.post(new FlingRunnable(getChild()));
             isScrolling = true;
         }

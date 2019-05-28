@@ -27,7 +27,6 @@ public class SearchViewBehavior extends CoordinatorLayout.Behavior<View> {
     private WeakReference<View> dependentView;
     private Scroller mScroller;
     private Handler mHandler;
-    private boolean isScrolling = false;
     private ArgbEvaluator mArgbEvaluator;
 
 
@@ -113,9 +112,6 @@ public class SearchViewBehavior extends CoordinatorLayout.Behavior<View> {
             if (childCount > 0) {
                 for (int i = 0; i < childCount; i++) {
                     return childOfLL.getChildAt(i);
-                    /*if (childAtView != null && childAtView instanceof CardView) {
-                        view = childAtView;
-                    }*/
                 }
             }
         }
@@ -169,83 +165,4 @@ public class SearchViewBehavior extends CoordinatorLayout.Behavior<View> {
     private float getSearchViewHeight() {
         return mContext.getResources().getDimension(R.dimen.home_header_searchview_height);
     }
-
-    private View getDependentView() {
-        return dependentView.get();
-    }
-
-    /*@Override
-    public boolean onStartNestedScroll(@NonNull CoordinatorLayout coordinatorLayout, @NonNull View child, @NonNull View directTargetChild, @NonNull View target, int axes, int type) {
-        return (axes & ViewCompat.SCROLL_AXIS_VERTICAL) != 0;
-    }*/
-
-    /*@Override
-    public void onNestedScrollAccepted(@NonNull CoordinatorLayout coordinatorLayout, @NonNull View child, @NonNull View directTargetChild, @NonNull View target, int axes, int type) {
-        mScroller.abortAnimation();
-        isScrolling = false;
-        super.onNestedScrollAccepted(coordinatorLayout, child, directTargetChild, target, axes, type);
-    }*/
-
-    /*@Override
-    public boolean onNestedPreFling(@NonNull CoordinatorLayout coordinatorLayout, @NonNull View child, @NonNull View target, float velocityX, float velocityY) {
-        return onFingerStopDrag(velocityY);
-    }
-
-    @Override
-    public void onStopNestedScroll(@NonNull CoordinatorLayout coordinatorLayout, @NonNull View child, @NonNull View target, int type) {
-//        super.onStopNestedScroll(coordinatorLayout, child, target, type);
-        if (!isScrolling) {
-            onFingerStopDrag(800);
-        }
-    }
-
-    private boolean onFingerStopDrag(float velocityY) {
-        View dependentView = getDependentView();
-        float dependentViewTranslationY = dependentView.getTranslationY();
-        float minDependentViewScrollOffset = -(getHeaderHeight() - getSearchViewHeight());
-        if (dependentViewTranslationY == 0 || dependentViewTranslationY == minDependentViewScrollOffset) {
-            return false;
-        }
-        boolean targetState;
-        if (Math.abs(velocityY) <= 800) {
-            Log.i("ddd", " if (Math.abs(velocityY) < 1000) ...");
-            if (Math.abs(dependentViewTranslationY) < Math.abs(dependentViewTranslationY - minDependentViewScrollOffset)) {
-                targetState = false;
-            } else {
-                targetState = true;
-            }
-            velocityY = 800;
-        } else {
-            Log.i("ddd", " else///////  velocityY : " + velocityY);
-            if (velocityY > 0) {
-                targetState = true;
-            } else {
-                targetState = false;
-            }
-        }
-        Log.i("ddd", "dependentViewTranslationY = " + dependentViewTranslationY);
-//        if (dependentViewTranslationY > minDependentViewScrollOffset && dependentViewTranslationY<0) {
-        if (dependentViewTranslationY > minDependentViewScrollOffset && dependentViewTranslationY < -1) {
-            float targetTranslationY = targetState ? minDependentViewScrollOffset : 0;
-            mScroller.startScroll(0, (int) dependentViewTranslationY, 0, (int) (targetTranslationY - dependentViewTranslationY), (int) (1000000 / Math.abs(velocityY)));
-            mHandler.post(flingRunnable);
-            isScrolling = true;
-            return true;
-        }
-        return false;
-    }
-
-    private Runnable flingRunnable = new Runnable() {
-        @Override
-        public void run() {
-            if (mScroller.computeScrollOffset()) {
-                getDependentView().setTranslationY(mScroller.getCurrY());
-                mHandler.post(this);
-            } else {
-                isScrolling = false;
-            }
-        }
-    };*/
-
-
 }
