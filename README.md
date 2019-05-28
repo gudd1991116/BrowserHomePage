@@ -31,7 +31,7 @@
             android:layout_height="match_parent"/>
     </android.support.v4.widget.NestedScrollView>
 ```
-```java
+```
   NestedScrollView news_flow_nsv = findViewById(R.id.news_flow_nsv);
   NewsFlowBehavior newsFlowBehavior = (NewsFlowBehavior) ((CoordinatorLayout.LayoutParams)news_flow_nsv.getLayoutParams()).getBehavior();
   newsFlowBehavior.setOnPagerStateListener(new NewsFlowBehavior.OnPagerStateListener() {

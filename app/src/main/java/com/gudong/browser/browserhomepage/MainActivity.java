@@ -107,14 +107,14 @@ public class MainActivity extends AppCompatActivity {
         newsFlowBehavior.setOnPagerStateListener(new NewsFlowBehavior.OnPagerStateListener() {
             @Override
             public void onPagerClosed() {
-                newsFlowBehavior.setCouldScrollOpen(false);
-                Toast.makeText(mContext, "close", Toast.LENGTH_SHORT).show();
+//                newsFlowBehavior.setCouldScrollOpen(false);
+//                Toast.makeText(mContext, "close", Toast.LENGTH_SHORT).show();
             }
 
             @Override
             public void onPagerOpened() {
-                newsFlowBehavior.setCouldScrollOpen(true);
-                Toast.makeText(mContext, "open", Toast.LENGTH_SHORT).show();
+//                newsFlowBehavior.setCouldScrollOpen(true);
+//                Toast.makeText(mContext, "open", Toast.LENGTH_SHORT).show();
             }
         });
     }
