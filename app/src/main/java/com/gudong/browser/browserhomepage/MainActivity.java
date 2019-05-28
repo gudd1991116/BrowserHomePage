@@ -122,7 +122,7 @@ public class MainActivity extends AppCompatActivity {
     @Override
     public void onBackPressed() {
 //        super.onBackPressed();
-        if (newsFlowBehavior.isClosed()) {
+        if (!newsFlowBehavior.isTop()) {
             newsFlowBehavior.scrollToTop();
         }else{
             super.onBackPressed();

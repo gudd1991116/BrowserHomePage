@@ -320,6 +320,14 @@ public class NewsFlowBehavior extends CoordinatorLayout.Behavior<View> {
     }
 
     /**
+     * 头部是否完全显示
+     * @return
+     */
+    public boolean isTop() {
+        return getDependency().getTranslationY() == 0;
+    }
+
+    /**
      * 头部view是否关闭了
      *
      * @return
