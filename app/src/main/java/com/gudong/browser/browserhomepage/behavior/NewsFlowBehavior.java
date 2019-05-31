@@ -218,34 +218,10 @@ public class NewsFlowBehavior extends CoordinatorLayout.Behavior<View> {
         if (dependentViewTranslationY == 0 || dependentViewTranslationY == minDependentViewScrollOffset) {
             return false;
         }
-        boolean targetState;
-       /* if (Math.abs(velocityY) <= 800) {
-            Log.e("ddd", " Math.abs(velocityY) <= 800 velocityY = " + velocityY);
-            if (Math.abs(dependentViewTranslationY) < Math.abs(dependentViewTranslationY - minDependentViewScrollOffset)) {
-                targetState = false;
-            } else {
-                targetState = true;
-            }
-//            velocityY = 800;
-        } else {
-
-            if (velocityY > 0) {
-                targetState = true;
-            } else {
-                targetState = false;
-            }
-        }*/
-
         boolean isUpward = velocityY > 0;
 
         if (dependentViewTranslationY > minDependentViewScrollOffset && dependentViewTranslationY < 0) {
-           /* mScroller.fling(0,(int) dependentViewTranslationY,0,(int) velocityY,0,0,(int) minDependentViewScrollOffset,0);
-            mHandler.post(flingRunnable);
-            isScrolling = true;
-            return true;*/
-//            float targetTranslationY = targetState ? minDependentViewScrollOffset : 0;
-//            mScroller.startScroll(0, (int) dependentViewTranslationY, 0, (int) (targetTranslationY - dependentViewTranslationY), (int) (1000000 / Math.abs(velocityY)));
-            float targetTranslationY = isUpward ? minDependentViewScrollOffset : 0;
+           float targetTranslationY = isUpward ? minDependentViewScrollOffset : 0;
 
             mScroller.startScroll(0, (int) dependentViewTranslationY, 0, (int) (targetTranslationY - dependentViewTranslationY), (int) (1000000 / Math.abs(velocityY)));
             mHandler.post(new FlingRunnable(child));
@@ -254,20 +230,6 @@ public class NewsFlowBehavior extends CoordinatorLayout.Behavior<View> {
         }
         return false;
     }
-
-
-    /*Runnable flingRunnable = new Runnable() {
-        @Override
-        public void run() {
-            if (mScroller.computeScrollOffset()) {
-                getDependency().setTranslationY(mScroller.getCurrY());
-                mHandler.post(this);
-            } else {
-                isScrolling = false;
-//                onFlingFinished();
-            }
-        }
-    };*/
 
     private class FlingRunnable implements Runnable {
         private final View mlayout;

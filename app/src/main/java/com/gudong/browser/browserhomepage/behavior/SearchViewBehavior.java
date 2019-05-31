@@ -2,7 +2,6 @@ package com.gudong.browser.browserhomepage.behavior;
 
 import android.animation.ArgbEvaluator;
 import android.content.Context;
-import android.os.Handler;
 import android.support.annotation.NonNull;
 import android.support.design.widget.CoordinatorLayout;
 import android.support.v7.widget.CardView;
@@ -10,13 +9,10 @@ import android.util.AttributeSet;
 import android.util.Log;
 import android.view.View;
 import android.widget.LinearLayout;
-import android.widget.Scroller;
 import android.widget.TextView;
 
 
 import com.gudong.browser.browserhomepage.R;
-
-import java.lang.ref.WeakReference;
 
 /**
  * Desc:搜索框behavior
@@ -24,24 +20,18 @@ import java.lang.ref.WeakReference;
  */
 public class SearchViewBehavior extends CoordinatorLayout.Behavior<View> {
     private Context mContext;
-    private WeakReference<View> dependentView;
-    private Scroller mScroller;
-    private Handler mHandler;
     private ArgbEvaluator mArgbEvaluator;
 
 
     public SearchViewBehavior(Context context, AttributeSet attrs) {
         super(context, attrs);
         this.mContext = context;
-        this.mHandler = new Handler();
-        this.mScroller = new Scroller(context);
         this.mArgbEvaluator = new ArgbEvaluator();
     }
 
     @Override
     public boolean layoutDependsOn(@NonNull CoordinatorLayout parent, @NonNull View child, @NonNull View dependency) {
         if (dependency != null && dependency.getId() == R.id.nested_header) {
-            dependentView = new WeakReference<>(dependency);
             return true;
         }
         return super.layoutDependsOn(parent, child, dependency);
