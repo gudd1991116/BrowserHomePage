@@ -2,9 +2,9 @@ package com.gudong.browser.browserhomepage.behavior;
 
 import android.animation.ArgbEvaluator;
 import android.content.Context;
-import android.support.annotation.NonNull;
-import android.support.design.widget.CoordinatorLayout;
-import android.support.v7.widget.CardView;
+import androidx.annotation.NonNull;
+import androidx.coordinatorlayout.widget.CoordinatorLayout;
+import androidx.cardview.widget.CardView;
 import android.util.AttributeSet;
 import android.util.Log;
 import android.view.View;
