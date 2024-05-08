@@ -18,12 +18,13 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import com.gudong.browser.browserhomepage.base.BaseActivity;
 import com.gudong.browser.browserhomepage.behavior.NewsFlowBehavior;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends BaseActivity {
     Context mContext;
     RecyclerView news_flow_recyclerview;
     RecyclerView sites_view;
